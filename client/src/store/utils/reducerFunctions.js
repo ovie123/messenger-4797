@@ -70,7 +70,7 @@ export const addNewConvoToStore = (state, recipientId, message) => {
   return state.map((convo) => {
     if (convo.otherUser.id === recipientId) {
       convo.id = message.conversationId;
-      convo.messages.push(message);
+      convo.messages = [message, ...convo.messages];
       convo.latestMessageText = message.text;
       return convo;
     } else {
