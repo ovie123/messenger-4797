@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { Input, Header, Messages } from "./index";
-import { useSelector, shallowEqual } from "react-redux";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -20,19 +20,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ActiveChat = () => {
+const ActiveChat = (props) => {
   const classes = useStyles();
-  const { user, conversation } = useSelector(
-    (state) => ({
-      user: state.user,
-      conversation:
-        state.conversations.find(
-          (conversation) =>
-            conversation.otherUser.username === state.activeConversation
-        ) || {},
-    }),
-    shallowEqual
-  );
+  const { user } = props;
+  let { conversation } = props || {};
 
   return (
     <Box className={classes.root}>
@@ -59,5 +50,15 @@ const ActiveChat = () => {
     </Box>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    conversation:
+      state.conversations.find(
+        (conversation) =>
+          conversation.otherUser.username === state.activeConversation
+      ) || {},
+  };
+};
 
-export default ActiveChat;
+export default connect(mapStateToProps)(ActiveChat);
