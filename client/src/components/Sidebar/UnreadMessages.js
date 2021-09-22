@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -30,21 +30,24 @@ const useStyles = makeStyles((theme) => ({
 
 const UnreadMessages = (props) => {
   const classes = useStyles();
+  const [unreadMsg, setUnreadMsg] = useState(0);
 
-  let { UnreadMsgs, userId } = props || {};
-  UnreadMsgs =
-    Object.keys(UnreadMsgs).length > 0 &&
-    UnreadMsgs.messages.filter(
-      (msg) => msg.isRead === false && msg.senderId !== userId
-    );
+  const { userId } = props || {};
+  useEffect(() => {
+    let UnreadMsgs = props.UnreadMsgs;
+    UnreadMsgs =
+      Object.keys(UnreadMsgs).length > 0 &&
+      UnreadMsgs.messages.filter(
+        (msg) => msg.isRead === false && msg.senderId !== userId
+      );
+    setUnreadMsg(UnreadMsgs.length);
+  }, [props.UnreadMsgs, userId]);
 
   return (
     <Box className={classes.root}>
       <Box>
-        {UnreadMsgs.length > 0 && (
-          <Typography className={classes.unReadText}>
-            {UnreadMsgs.length}
-          </Typography>
+        {unreadMsg > 0 && (
+          <Typography className={classes.unReadText}>{unreadMsg}</Typography>
         )}
       </Box>
     </Box>

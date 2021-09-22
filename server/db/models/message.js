@@ -7,8 +7,8 @@ const Message = db.define("message", {
     allowNull: false,
   },
   isRead: {
-    type: Sequelize.STRING,
-    allowNull: true,
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
   },
   senderId: {
     type: Sequelize.INTEGER,

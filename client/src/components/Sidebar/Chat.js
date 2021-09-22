@@ -29,13 +29,13 @@ const Chat = (props) => {
 
   const handleClick = async (conversation) => {
     await props.setActiveChat(conversation.otherUser.username);
-    let lastIndex = conversation.messages.length - 1;
-    if (conversation.messages[lastIndex].senderId !== userId) {
-      await props.MarkConvoAsRead(
-        conversation.messages[lastIndex].conversationId,
-        userId,
-        otherUser.id
-      );
+    const lastIndex = conversation.messages.length - 1;
+    const hasBeenRead = conversation?.messages[lastIndex]?.isRead;
+    const convoId = conversation?.messages[lastIndex]?.conversationId;
+    const senderId = conversation?.messages[lastIndex]?.senderId;
+
+    if (senderId !== userId && hasBeenRead === false) {
+      await props.MarkConvoAsRead(convoId, userId, otherUser.id);
     }
   };
 

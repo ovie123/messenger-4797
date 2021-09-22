@@ -87,7 +87,7 @@ export const markConvoAsRead = (state, conversationId, userId) => {
     const lastIndex = convo.messages.length - 1;
 
     if (
-      ConvoCopy.messages[lastIndex].conversationId === conversationId &&
+      ConvoCopy.id === conversationId &&
       userId !== ConvoCopy.messages[lastIndex].senderId
     ) {
       ConvoCopy.messages.map((msg) => {

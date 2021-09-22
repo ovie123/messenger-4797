@@ -4,7 +4,7 @@ import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
 
 const Messages = (props) => {
-  let { messages, otherUser, userId } = props;
+  const { messages, otherUser, userId } = props;
 
   return (
     <Box>
