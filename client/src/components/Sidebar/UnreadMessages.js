@@ -31,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
 const UnreadMessages = (props) => {
   const classes = useStyles();
 
-  let { UnreadMsgs, user } = props || {};
+  let { UnreadMsgs, userId } = props || {};
   UnreadMsgs =
     Object.keys(UnreadMsgs).length > 0 &&
     UnreadMsgs.messages.filter(
-      (msg) => msg.isRead === false && msg.senderId !== user
+      (msg) => msg.isRead === false && msg.senderId !== userId
     );
 
   return (
