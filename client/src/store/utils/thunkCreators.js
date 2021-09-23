@@ -92,7 +92,12 @@ const saveMessage = async (body) => {
 };
 
 const updateMessageStatus = async (conversationId, userId, otherUserId) => {
-  await axios.put("/api/messages", { conversationId, userId, otherUserId });
+  const { data } = await axios.put("/api/messages", {
+    conversationId,
+    userId,
+    otherUserId,
+  });
+  return data;
 };
 
 const sendMessage = (data, body) => {
@@ -101,6 +106,13 @@ const sendMessage = (data, body) => {
     recipientId: body.recipientId,
     sender: data.sender,
     isRead: data.isRead,
+  });
+};
+
+const resetNotification = (data) => {
+  socket.emit("reset-notification", {
+    conversationId: data.conversationId,
+    sender: data.otherUserId,
   });
 };
 
@@ -125,8 +137,14 @@ export const postMessage = (body) => async (dispatch) => {
 export const updateReadStatus =
   (conversationId, userId, otherUserId) => async (dispatch) => {
     try {
-      await updateMessageStatus(conversationId, userId, otherUserId);
-      dispatch(markConversationAsRead(conversationId, userId));
+      const data = await updateMessageStatus(
+        conversationId,
+        userId,
+        otherUserId
+      );
+      dispatch(markConversationAsRead(data.conversationId, data.otherUserId));
+
+      resetNotification(data);
     } catch (error) {
       console.error(error);
     }

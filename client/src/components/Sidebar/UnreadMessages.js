@@ -30,25 +30,19 @@ const useStyles = makeStyles((theme) => ({
 
 const UnreadMessages = (props) => {
   const classes = useStyles();
-  const [unreadMsg, setUnreadMsg] = useState(0);
-
-  const { userId } = props || {};
-  useEffect(() => {
-    let UnreadMsgs = props.UnreadMsgs;
-    UnreadMsgs =
-      Object.keys(UnreadMsgs).length > 0 &&
-      UnreadMsgs.messages.filter(
-        (msg) => msg.isRead === false && msg.senderId !== userId
-      );
-    setUnreadMsg(UnreadMsgs.length);
-  }, [props.UnreadMsgs, userId]);
+  const notification = props.conversation.notification || 0;
+  const { conversation, userId } = props;
+  const lastIndex = conversation.messages.length - 1;
 
   return (
     <Box className={classes.root}>
       <Box>
-        {unreadMsg > 0 && (
-          <Typography className={classes.unReadText}>{unreadMsg}</Typography>
-        )}
+        {conversation?.messages[lastIndex]?.senderId !== userId &&
+          notification > 0 && (
+            <Typography className={classes.unReadText}>
+              {notification}
+            </Typography>
+          )}
       </Box>
     </Box>
   );

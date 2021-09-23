@@ -35,7 +35,7 @@ const Chat = (props) => {
     const senderId = conversation?.messages[lastIndex]?.senderId;
 
     if (senderId !== userId && hasBeenRead === false) {
-      await props.MarkConvoAsRead(convoId, userId, otherUser.id);
+      await props.updateReadStatus(convoId, userId, otherUser.id);
     }
   };
 
@@ -48,7 +48,7 @@ const Chat = (props) => {
         sidebar={true}
       />
       <ChatContent conversation={conversation} />
-      <UnreadMessages UnreadMsgs={conversation} userId={userId} />
+      <UnreadMessages conversation={conversation} userId={userId} />
     </Box>
   );
 };
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch) => {
     setActiveChat: (id) => {
       dispatch(setActiveChat(id));
     },
-    MarkConvoAsRead: (convoId, userId, otherUserId) => {
+    updateReadStatus: (convoId, userId, otherUserId) => {
       dispatch(updateReadStatus(convoId, userId, otherUserId));
     },
   };
