@@ -30,13 +30,11 @@ const Chat = (props) => {
   const handleClick = async (conversation) => {
     await props.setActiveChat(conversation.otherUser.username);
     const lastIndex = conversation.messages.length - 1;
-    const hasBeenRead = conversation?.messages[lastIndex]?.isRead;
+    // const hasBeenRead = conversation?.messages[lastIndex]?.isRead;
     const convoId = conversation?.messages[lastIndex]?.conversationId;
     const senderId = conversation?.messages[lastIndex]?.senderId;
 
-    if (senderId !== userId && hasBeenRead === false) {
-      await props.updateReadStatus(convoId, userId, otherUser.id);
-    }
+    await props.updateReadStatus(convoId, userId, otherUser.id);
   };
 
   return (

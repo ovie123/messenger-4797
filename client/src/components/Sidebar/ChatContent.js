@@ -38,7 +38,7 @@ const ChatContent = (props) => {
         </Typography>
         <Typography
           className={
-            otherUser.id === conversation.messages[lastIndex].senderId &&
+            otherUser.id === conversation?.messages[lastIndex]?.senderId &&
             notification > 0
               ? ` ${classes.previewText} ${classes.boldText}`
               : classes.previewText
