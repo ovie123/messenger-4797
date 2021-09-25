@@ -30,7 +30,7 @@ const ActiveChat = (props) => {
   const handleClick = async (conversation) => {
     const lastIndex = conversation.messages.length - 1;
     const convoId = conversation?.messages[lastIndex]?.conversationId;
-    if (conversation?.messages[lastIndex].senderId !== user.id) {
+    if (conversation?.messages[lastIndex]?.senderId !== user.id) {
       await props.updateReadStatus(convoId, user.id, otherUser.id);
     }
   };
