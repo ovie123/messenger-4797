@@ -31,7 +31,7 @@ const Chat = (props) => {
     await props.setActiveChat(conversation.otherUser.username);
     const lastIndex = conversation.messages.length - 1;
     const convoId = conversation?.messages[lastIndex]?.conversationId;
-    if (conversation?.messages[lastIndex].senderId !== userId) {
+    if (conversation?.messages[lastIndex]?.senderId !== userId) {
       await props.updateReadStatus(convoId, userId, otherUser.id);
     }
   };
