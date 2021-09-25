@@ -92,8 +92,9 @@ export const markConvoAsRead = (state, conversationId, userId) => {
       convoCopy.notification = 0;
       convoCopy.messages.map((msg, index) => {
         msg.isRead = true;
+        const indexCondition = lastIndex === index || lastIndex === index - 1;
         if (userId === msg.senderId) {
-          if (lastIndex === index || lastIndex === index - 1) {
+          if (indexCondition) {
             msg.isLastMessageRead = true;
           } else {
             msg.isLastMessageRead = false;

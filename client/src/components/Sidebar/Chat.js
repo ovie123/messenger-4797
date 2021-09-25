@@ -25,17 +25,21 @@ const useStyles = makeStyles((theme) => ({
 const Chat = (props) => {
   const classes = useStyles();
   const { conversation, userId } = props;
-  const { otherUser } = conversation;
+  const { otherUser, notification } = conversation;
 
   const handleClick = async (conversation) => {
     await props.setActiveChat(conversation.otherUser.username);
     const lastIndex = conversation.messages.length - 1;
-    // const hasBeenRead = conversation?.messages[lastIndex]?.isRead;
     const convoId = conversation?.messages[lastIndex]?.conversationId;
-    const senderId = conversation?.messages[lastIndex]?.senderId;
-
-    await props.updateReadStatus(convoId, userId, otherUser.id);
+    if (conversation?.messages[lastIndex].senderId !== userId) {
+      await props.updateReadStatus(convoId, userId, otherUser.id);
+    }
   };
+
+  const lastIndex = conversation.messages.length - 1;
+  const isNotification =
+    otherUser.id === conversation?.messages[lastIndex]?.senderId &&
+    notification > 0;
 
   return (
     <Box onClick={() => handleClick(conversation)} className={classes.root}>
@@ -45,8 +49,14 @@ const Chat = (props) => {
         online={otherUser.online}
         sidebar={true}
       />
-      <ChatContent conversation={conversation} />
-      <UnreadMessages conversation={conversation} userId={userId} />
+      <ChatContent
+        conversation={conversation}
+        color={isNotification ? "black" : "#9CADC8"}
+        fontWeight={isNotification ? "600" : "100"}
+      />
+      {isNotification && (
+        <UnreadMessages conversation={conversation} userId={userId} />
+      )}
     </Box>
   );
 };

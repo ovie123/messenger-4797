@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -7,6 +7,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     marginLeft: 20,
+    flexGrow: 1,
+  },
+  unreadChatContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginRight: 10,
     flexGrow: 1,
   },
   username: {
@@ -19,30 +25,27 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: -0.17,
   },
   unReadText: {
+    width: 24,
+    height: 24,
     fontSize: 12,
-    color: "white",
-    letterSpacing: -0.17,
-    backgroundColor: "#4169E1",
-    padding: 6,
-    borderRadius: "100%",
+    textAlign: "center",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#FFFFFF",
+    backgroundColor: "#3A8DFF",
+    borderRadius: "50%",
   },
 }));
 
 const UnreadMessages = (props) => {
   const classes = useStyles();
   const notification = props.conversation.notification || 0;
-  const { conversation, userId } = props;
-  const lastIndex = conversation.messages.length - 1;
 
   return (
     <Box className={classes.root}>
-      <Box>
-        {conversation?.messages[lastIndex]?.senderId !== userId &&
-          notification > 0 && (
-            <Typography className={classes.unReadText}>
-              {notification}
-            </Typography>
-          )}
+      <Box className={classes.unreadChatContainer}>
+        {<Typography className={classes.unReadText}>{notification}</Typography>}
       </Box>
     </Box>
   );

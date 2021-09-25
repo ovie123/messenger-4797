@@ -71,7 +71,9 @@ router.get("/", async (req, res, next) => {
       convoJSON.latestMessageText = convoJSON.messages[0].text;
       conversations[i] = convoJSON;
       convoJSON.notification = conversations[i].messages.filter(
-        (con) => con.senderId === convoJSON.otherUser.id && con.isRead === false
+        (message) =>
+          message.senderId === convoJSON.otherUser.id &&
+          message.isRead === false
       ).length;
     }
 

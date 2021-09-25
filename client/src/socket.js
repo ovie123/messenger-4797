@@ -23,7 +23,6 @@ socket.on("connect", () => {
     store.dispatch(setNewMessage(data.message, data.sender));
   });
   socket.on("reset-notification", (data) => {
-    console.log(data, "is here");
     store.dispatch(markConversationAsRead(data.conversationId, data.sender));
   });
 });
