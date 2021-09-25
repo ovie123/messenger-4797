@@ -46,6 +46,12 @@ io.on("connection", (socket) => {
       sender: data.sender,
     });
   });
+  socket.on("reset-notification", (data) => {
+    socket.broadcast.emit("reset-notification", {
+      conversationId: data.conversationId,
+      sender: data.sender,
+    });
+  });
 
   socket.on("logout", (id) => {
     if (onlineUsers.includes(id)) {
