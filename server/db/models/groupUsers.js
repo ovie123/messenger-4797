@@ -3,12 +3,13 @@ const db = require("../db");
 
 const GroupUsers = db.define("groupUsers", {
   groupId: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   userId: {
-    type: Sequelize.BOOLEAN,
+    type: Sequelize.INTEGER,
     allowNull: false,
+    unique: true,
   },
 });
 

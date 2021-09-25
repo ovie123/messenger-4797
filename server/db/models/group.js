@@ -7,7 +7,7 @@ const Group = db.define("group", {
     allowNull: false,
   },
   createdBy: {
-    type: Sequelize.BOOLEAN,
+    type: Sequelize.STRING,
     allowNull: false,
   },
 });

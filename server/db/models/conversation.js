@@ -4,15 +4,15 @@ const Message = require("./message");
 
 const Conversation = db.define("conversation", {
   user1Id: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: true,
   },
   user2Id: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: true,
   },
   groupUser: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: true,
   },
 });
